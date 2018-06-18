@@ -1,0 +1,20 @@
+setting up a new CaaSP cluster with autoyast and no DHCP available or hostname is not set in DHCP
+
+autoyast stage 2 is not available in CaaSP v2
+what will work in this scenario 
+have install source available
+use linuxrc options at the kernel cmdline
+
+#example IP addresses only
+netsetup=0 netwait=10 hostip=192.168.3.91 nameserver=192.168.3.1
+gateway=192.168.3.1 netmask=255.255.255.0 domain=site.local
+hostname=caasp.site.local autoyast=http://192.168.3.10/pub/caasp/caasp.xml 
+install=http://192.168.3.10/CaaSP2
+
+Also the networking section of the autoyast file should only contain the following:  
+<networking>
+<keep_install_network config:type="boolean">true</keep_install_network>
+</networking>
+
+for yast2-network < 3.3.3
+yast2-network, similarly to other yast modules, relies on second stage for part of its configuration
